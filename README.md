@@ -1,44 +1,55 @@
 # Pomodoro (chrono)
 
-Un minuteur Pomodoro tout simple en C, qui affiche un compte à rebours coloré dans le terminal.
+Un minuteur Pomodoro minimaliste en C : un compte à rebours coloré dans le
+terminal, puis un écran de fin qui clignote jusqu'à ce que tu appuies sur
+Espace.
 
-## Description
-
-Le programme prend une durée en **heures, minutes et secondes**, puis affiche
-un chronomètre qui défile jusqu'à atteindre la cible. Une fois le temps écoulé,
-un écran de fin clignotant t'invite à appuyer sur **Espace** pour quitter.
+![demo du chrono](docs/demo.gif)
 
 ## Compilation
 
-```bash
+```sh
 make
 ```
 
 ou directement :
 
-```bash
-gcc src/chrono.c -o chrono
+```sh
+cc src/chrono.c src/conio_new.c -I header -o chrono
 ```
 
 ## Utilisation
 
-```bash
+```sh
 ./chrono <heures> <minutes> <secondes>
 ```
 
-### Exemple
+| Exemple            | Effet                      |
+|--------------------|----------------------------|
+| `./chrono 0 25 0`  | une session de 25 minutes  |
+| `./chrono 0 5 0`   | une pause de 5 minutes     |
+| `./chrono 1 30 0`  | 1 h 30                     |
 
-```bash
-./chrono 0 25 0
-```
-
-Lance un chrono de 25 minutes.
+Les trois arguments sont des entiers positifs. Sans arguments valides, le
+programme affiche l'usage et quitte avec le code 1.
 
 ## Contrôles
 
 - **Espace** : quitter l'écran de fin une fois le temps écoulé.
 
-## Notes
+## Fichiers
 
-- Les trois arguments doivent être des nombres entiers positifs.
-- Si les arguments sont manquants ou invalides, le programme affiche :
+```
+.
+├── header/chrono.h     prototypes et structure principale
+├── src/chrono.c        boucle du compte à rebours et écran de fin
+├── src/conio_new.c     kbhit() / getch() : lecture clavier non bloquante (termios)
+└── Makefile
+```
+
+## Fonctionnement
+
+Le programme redessine le cadre chaque seconde avec des séquences ANSI
+(effacement d'écran et couleurs). Quand la cible est atteinte, il passe le
+terminal en mode non canonique pour détecter la touche Espace sans bloquer,
+et fait défiler les couleurs du cadre toutes les deux secondes.

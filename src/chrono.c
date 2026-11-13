@@ -75,7 +75,7 @@ int	main(int argc, char **argv)
 			printf("\033c");
 			printf("\033[1;35m");
 			printf("   ╔═══════════════════════════════════╗\n");
-			printf("   ║         \033[1;36m⏱   POMODORO   ⏱\033[1;35m          ║\n");
+			printf("   ║         \033[1;36m-   POMODORO   -\033[1;35m          ║\n");
 			printf("   ╠═══════════════════════════════════╣\n");
 			printf("   ║   \033[1;33m%02d h\033[1;35m  ┃  \033[1;33m%02d min\033[1;35m  ┃  \033[1;33m%02d sec\033[1;35m      ║ TARGET -> %02d:%02d:%02d\n", var.i, var.j, var.k, var.h, var.m, var.s);
 			printf("   ╚═══════════════════════════════════╝\033[0m\n");
@@ -100,7 +100,7 @@ int	main(int argc, char **argv)
             	var.clav = getch();
 				if ((int)var.clav == 32)
 				{
-					printf("Exiting...");
+					printf("\nExiting...\n");
 					break;
 				}
 			}
@@ -109,7 +109,7 @@ int	main(int argc, char **argv)
 			printf("\033[0m");
 			printf("\033[%dm", i);
 			printf("   ╔══════════════════════════════════════════╗\n");
-			printf("   ║              ⏱   POMODORO   ⏱            ║\n");
+			printf("   ║              -   POMODORO   -            ║\n");
 			printf("   ║   hope you've finished what you started! ║\n");
 			printf("   ╚══════════════════════════════════════════╝\n");
 			printf("      PRESS SPACE when you're ready to exit   \n");
@@ -120,7 +120,7 @@ int	main(int argc, char **argv)
             	var.clav = getch();
 				if ((int)var.clav == 32)
 				{
-					printf("Exiting...");
+					printf("\nExiting...\n");
 					break;
 				}
 			}
@@ -130,5 +130,7 @@ int	main(int argc, char **argv)
 	else
 	{
 		printf("Usage: %s <hours> <minutes> <seconds>\n", argv[0]);
+		return (1);
 	}
+	return (0);
 }
